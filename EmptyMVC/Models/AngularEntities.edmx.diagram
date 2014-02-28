@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fcf27e6763644dd3b54a5cd67810a747" Name="Diagram1">
+        <EntityTypeShape EntityType="AngularModel.angularPost" Width="1.5" PointX="8.8507022265580968" PointY="6.4811863184353271" />
+        <EntityTypeShape EntityType="AngularModel.comment" Width="1.5" PointX="11.5" PointY="6.625" />
+        <AssociationConnector Association="AngularModel.FK_comments_posts" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

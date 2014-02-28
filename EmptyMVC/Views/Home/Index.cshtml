@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "angular demo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html ng-app="postsModel">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="content-container" ng-controller="postsController">
+        <div id="content1">
+            <!-- Toolbox -->
+            @Html.Partial("_addpost")
+        </div>
+        <div id="content2">
+            <!-- Designer -->
+            @*@Html.Partial("_contentPartial2")*@
+        </div>
+    </div>
+</body>
+</html>

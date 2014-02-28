@@ -1,0 +1,12 @@
+﻿Generated model file: AngularEntities.edmx.
+Loading metadata from the database took 00:00:00.4839317.
+Generating the model took 00:00:01.1258498.
+Successfully registered the assembly 'System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089' in the Web.Config file.
+Generated model file: AngularEntities.edmx.
+Loading metadata from the database took 00:00:00.4056700.
+Generating the model took 00:00:00.7684299.
+Successfully registered the assembly 'System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089' in the Web.Config file.
+Generated model file: AngularEntities.edmx.
+Loading metadata from the database took 00:00:00.4569192.
+Generating the model took 00:00:00.2554676.
+Successfully registered the assembly 'System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089' in the Web.Config file.

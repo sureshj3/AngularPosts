@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AngularModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="AngularModelStoreContainer">
+          <EntitySet Name="angularPost" EntityType="AngularModel.Store.angularPost" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="comments" EntityType="AngularModel.Store.comments" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_comments_posts" Association="AngularModel.Store.FK_comments_posts">
+            <End Role="angularPost" EntitySet="angularPost" />
+            <End Role="comments" EntitySet="comments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="angularPost">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="content" Type="nvarchar(max)" />
+          <Property Name="postedby" Type="nvarchar(max)" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="UserIP" Type="varchar" MaxLength="50" />
+          <Property Name="UserBrowser" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="comments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="parentPost" Type="bigint" Nullable="false" />
+          <Property Name="comments" Type="nvarchar(max)" />
+          <Property Name="commentPostedby" Type="nvarchar(max)" />
+          <Property Name="createDate" Type="datetime" />
+          <Property Name="UserIP" Type="varchar" MaxLength="50" />
+          <Property Name="UserBrowser" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_comments_posts">
+          <End Role="angularPost" Type="AngularModel.Store.angularPost" Multiplicity="1" />
+          <End Role="comments" Type="AngularModel.Store.comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="angularPost">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="comments">
+              <PropertyRef Name="parentPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AngularModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AngularEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="angularPosts" EntityType="AngularModel.angularPost" />
+          <EntitySet Name="comments" EntityType="AngularModel.comment" />
+          <AssociationSet Name="FK_comments_posts" Association="AngularModel.FK_comments_posts">
+            <End Role="angularPost" EntitySet="angularPosts" />
+            <End Role="comment" EntitySet="comments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="angularPost">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="content" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="postedby" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="createdate" Precision="3" />
+          <Property Type="Boolean" Name="isActive" />
+          <Property Type="String" Name="UserIP" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserBrowser" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="comments" Relationship="AngularModel.FK_comments_posts" FromRole="angularPost" ToRole="comment" />
+        </EntityType>
+        <EntityType Name="comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="parentPost" Nullable="false" />
+          <Property Type="String" Name="comments" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="createDate" Precision="3" />
+          <Property Type="String" Name="UserIP" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserBrowser" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="angularPost" Relationship="AngularModel.FK_comments_posts" FromRole="comment" ToRole="angularPost" />
+          <Property Type="String" Name="commentPostedby" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_comments_posts">
+          <End Type="AngularModel.angularPost" Role="angularPost" Multiplicity="1" />
+          <End Type="AngularModel.comment" Role="comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="angularPost">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="parentPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AngularModelStoreContainer" CdmEntityContainer="AngularEntities">
+          <EntitySetMapping Name="angularPosts">
+            <EntityTypeMapping TypeName="AngularModel.angularPost">
+              <MappingFragment StoreEntitySet="angularPost">
+                <ScalarProperty Name="UserBrowser" ColumnName="UserBrowser" />
+                <ScalarProperty Name="UserIP" ColumnName="UserIP" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="postedby" ColumnName="postedby" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comments">
+            <EntityTypeMapping TypeName="AngularModel.comment">
+              <MappingFragment StoreEntitySet="comments">
+                <ScalarProperty Name="commentPostedby" ColumnName="commentPostedby" />
+                <ScalarProperty Name="UserBrowser" ColumnName="UserBrowser" />
+                <ScalarProperty Name="UserIP" ColumnName="UserIP" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="parentPost" ColumnName="parentPost" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

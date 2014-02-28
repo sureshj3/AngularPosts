@@ -1,0 +1,22 @@
+﻿<form ng-submit="addpost()">
+    <textarea rows="4" cols="50" ng-model="newcontent" size="30"
+        placeholder="your post"></textarea>
+    <br />
+    <input type="text" ng-model="postedby" size="30"
+        placeholder="anonymous" />
+    <input class="btn-primary" type="submit" value="post" />
+</form>
+
+<br />
+<span>Total posts saved - {{posts.length}}</span>
+<ul class="">
+    <li ng-repeat="post in posts">
+        <h4>{{post.content}}</h4>
+        <p>- {{post.postedby}}</p>@* on <span>{{post.createdate | date:'MM/dd/yyyy  h:mma'}}</span>*@
+    </li>
+</ul>
+
+<br />
+<input class="btn-primary" type="button" value="<< prev" ng-click="prevclick()" ng-disabled="prevdisabled" />
+{{currPage}} 
+<input class="btn-primary" type="button" value="next >>" ng-click="nextclick()" ng-disabled="nextdisabled" />
