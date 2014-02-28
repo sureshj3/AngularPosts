@@ -7,6 +7,7 @@ using EmptyMVC.Models;
 using EmptyMVC.ViewModels;
 using EmptyMVC.BL;
 using System.Web.Script.Serialization;
+using System.Text.RegularExpressions;
 
 
 namespace EmptyMVC.Controllers
@@ -54,6 +55,9 @@ namespace EmptyMVC.Controllers
             var abc = _AngularPostsBL.GetListofPosts(pageno);
             JavaScriptSerializer js = new JavaScriptSerializer();
             string jsonResult = js.Serialize(abc);
+
+            //jsonResult = Regex.Replace(jsonResult, @"\""\\/Date\((\d+)\)\\/\""", "new Date($1)");
+
             return Content(jsonResult);
         }
 

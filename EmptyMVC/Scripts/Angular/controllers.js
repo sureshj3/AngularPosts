@@ -101,8 +101,8 @@ postsModel.controller('postsController', function ($scope, postsFactory) {
         $scope.prevnextdisabling();
     };
 
-    $scope.prevclick = function () {
-        $scope.currPage = $scope.currPage - 1;
+    $scope.scrollDown = function () {
+        $scope.currPage = $scope.currPage + 1;
         if ($scope.currPage > 0)
             postsFactory.getPosts($scope.currPage, function (data) {
                 $scope.posts = data;

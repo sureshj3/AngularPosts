@@ -1,10 +1,21 @@
 ﻿<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <h1>Posts <small>by anonymous users</small></h1>
+        <div class="row">
+            <div class="col-xs-3">
+                <h2>Posts <small>by anonymous users</small></h2>
+            </div>
+            <div class="col-xs-6" style="padding-top: 15px;">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                    <input type="text" ng-model="search" class="form-control" placeholder="Username">
+                </div>
+            </div>
+
+        </div>
     </div>
 </nav>
 
-<div class="container" style="padding-top: 70px;">
+<div class="container" style="padding-top: 60px;">
 
     <div class="row">
         <div class="col-xs-3" class="page-header">
@@ -15,16 +26,16 @@
                     <textarea rows="3" cols="50" ng-model="newcontent" placeholder="your post" class="form-control"></textarea>
                 </div>
                 <div class="row">
-                    <div class="col-xs-10">
+                    <div class="col-xs-9">
                         <div class="input-group">
                             <span class="input-group-addon">by</span>
                             <input type="text" ng-model="postedby" placeholder="anonymous" class="form-control" />
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    <div class="col-xs-2">
+                    <div>
                         <div class="form-group">
-                            <input class="btn btn-primary " type="submit" value="post" data-toggle="tooltip" data-placement="right" title="Submit your Post as anonymous user" />
+                            <input class="btn btn-primary " type="submit" value="Add post" data-toggle="tooltip" data-placement="right" title="Submit your Post as anonymous user" />
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -39,8 +50,7 @@
             <div id="alert-error" class="alert alert-danger  alert-dismissable hidden">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>invalid input...
             </div>
-
-            <div class="panel panel-default" ng-repeat="post in posts">
+            <div ng-repeat="post in posts" class="panel panel-default">
                 <div style="padding: 5px;">
 
                     <a data-toggle="collapse" href="#}" ng-click="addcomment('post.id')">
@@ -53,21 +63,24 @@
                         <span class="badge">{{post.comments.length}}</span>
                         &nbsp;Comments
                     </a>
-                    <p class="pull-right">by - {{post.postedby}}</p>@* on <span>{{post.createdate | date:'MM/dd/yyyy  h:mma'}}</span>*@
+                    <p class="pull-right">
+                        <img src="~/Content/Images/default.png" alt="-by" width="25" height="25">&nbsp; {{post.postedby}}
+                    </p>
+                    @*on <span>{{post.createdate | date:'MM/dd/yyyy  h:mma'}}</span>*@
                 </div>
-                <div class="panel-body" postid="{{post.id}}" style="padding: 0px 20px;">
+                <div class="panel-body" postid="{{post.id}}" style="padding: 0px 12px;">
 
 
                     <div class="clearfix"></div>
 
-                    <div id="collapse-{{post.id}}" class="panel-collapse collapse" style="padding: 15px 0px;">
+                    <div id="collapse-{{post.id}}" class="panel-collapse collapse" style="padding: 7px 0px;">
                         <div class="" ng-repeat="comment in post.comments">
-                            {{comment.commenttext}} - {{comment.postedby}}
-                            <hr />
+                            <img src="~/Content/Images/default.png" alt="-by" width="25" height="25">&nbsp; {{comment.commenttext}}  <b>{{comment.postedby}}</b>
+                            <hr style="color: lightgrey; background-color: lightgrey; height: 1px;" />
                         </div>
 
                         <div class="form-group">
-                            <textarea rows="3" cols="50" ng-model="newcomment[post.id + '']" placeholder="write your comments here..." class="form-control"></textarea>
+                            <textarea rows="2" cols="50" ng-model="newcomment[post.id + '']" placeholder="write your comments here..." class="form-control"></textarea>
                         </div>
                         <button class="btn btn-default pull-right" type="button" data-toggle="tooltip" data-placement="right" title="Submit your comment as anonymous user"
                             ng-click="addcomment('post.id')">
@@ -76,13 +89,14 @@
 
                     </div>
                 </div>
+
             </div>
 
-            <div class="pagination pull-right">
+            @*     <div class="pagination pull-right">
                 <input class="btn btn-default" type="button" value="&laquo; prev" ng-click="prevclick()" ng-disabled="prevdisabled" />
                 {{currPage}} 
                 <input class="btn btn-default" type="button" value="next &raquo;" ng-click="nextclick()" ng-disabled="nextdisabled" />
-            </div>
+            </div>*@
         </div>
     </div>
     @* <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">

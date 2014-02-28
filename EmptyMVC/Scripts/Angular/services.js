@@ -23,7 +23,7 @@ postsModel.service('postsFactory', function ($http) {
     };
 
     this.addcomment = function (commentVM, successCallback) {
-        $http.post('/home/InsertComment', { "vm": JSON.stringify(commentVM) }).
+        $http.post('/home/InsertComment', { "vm": angular.toJson(commentVM) }).
         success(function (data, status) {
             successCallback(data);
         }).
