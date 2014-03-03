@@ -1,6 +1,6 @@
 ﻿
 
-var postsModel = angular.module('postsModel', [])
+var postsModel = angular.module('postsModel', ['infinite-scroll'])
 
 
 

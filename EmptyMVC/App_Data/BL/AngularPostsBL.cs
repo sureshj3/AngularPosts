@@ -47,10 +47,15 @@ namespace EmptyMVC.BL
             return cmm.id;
         }
 
-        public IEnumerable<postViewModel> GetListofPosts(int pageno)
+        public IEnumerable<postViewModel> GetListofPosts(int pageno, string searchText)
         {
             int PostsPerPage = Convert.ToInt16(ConfigurationManager.AppSettings["PostsPerPage"]);
-            return db.angularPosts.Select(a => new postViewModel
+            IEnumerable<angularPost> aps = db.angularPosts;
+
+            if (searchText != null && searchText != "")
+                aps = aps.Where(ap => ap.content.Contains(searchText));
+
+            return aps.Select(a => new postViewModel
             {
                 id = a.id,
                 content = a.content,

@@ -36,7 +36,7 @@ namespace EmptyMVC.Controllers
             //Request.Browser.br
             JavaScriptSerializer js = new JavaScriptSerializer();
             postViewModel pm = js.Deserialize<postViewModel>(vm);
-            _AngularPostsBL.AddPost(pm,Request);
+            _AngularPostsBL.AddPost(pm, Request);
             return Content("");
         }
 
@@ -49,16 +49,16 @@ namespace EmptyMVC.Controllers
             return Content("");
         }
 
-        public ActionResult getPosts(int pageno)
+        public JsonResult getPosts(int pageno, string searchtext)
         {
             ViewBag.totalPages = db.angularPosts.Count();
-            var abc = _AngularPostsBL.GetListofPosts(pageno);
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            string jsonResult = js.Serialize(abc);
+            var abc = _AngularPostsBL.GetListofPosts(pageno, searchtext);
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //string jsonResult = js.Serialize(abc);
 
             //jsonResult = Regex.Replace(jsonResult, @"\""\\/Date\((\d+)\)\\/\""", "new Date($1)");
 
-            return Content(jsonResult);
+            return Json(abc);
         }
 
     }

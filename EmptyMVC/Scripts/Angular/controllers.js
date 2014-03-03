@@ -28,17 +28,34 @@ function showHideAlerts(showAlertObject, HideAlertObject, HideBothObject) {
 //******************************************************************************************************
 
 postsModel.controller('postsController', function ($scope, postsFactory) {
-    $scope.currPage = 1;
+    $scope.currPage = 0;
     $scope.totalPages = 10;
     $scope.newcomment = {};
+    $scope.busy = false;
+    $scope.posts = [];
 
 
 
-    postsFactory.getPosts($scope.currPage, function (data) {
-        $scope.posts = data;
-    });
+    //postsFactory.getJSONPosts($scope.currPage, $scope.searchText, function (data) {
+    //    $scope.posts = data;
+    //});
 
 
+
+
+    $scope.getPosts = function (onComplete) {
+        postsFactory.getPosts($scope.currPage, $scope.searchText === undefined ? "" : $scope.searchText, function (data) {
+            $scope.busy = false;
+            for (var i = 0; i < data.length; i++) {
+                $scope.posts.push(data[i]);
+            };
+
+            if (typeof onComplete === 'function') {
+                onComplete();
+            };
+
+        });
+    };
 
     $scope.addpost = function () {
         if ($scope.newcontent === undefined || $scope.newcontent.trim() == '') {
@@ -101,14 +118,27 @@ postsModel.controller('postsController', function ($scope, postsFactory) {
         $scope.prevnextdisabling();
     };
 
-    $scope.scrollDown = function () {
+    $scope.loadMore = function () {
+        if ($scope.busy == true) { return; }
+
+        $scope.busy = true;
         $scope.currPage = $scope.currPage + 1;
         if ($scope.currPage > 0)
-            postsFactory.getPosts($scope.currPage, function (data) {
-                $scope.posts = data;
-            });
+            $scope.getPosts();
+    };
 
-        $scope.prevnextdisabling();
+    $scope.SearchPosts = function (e) {
+        if (typeof e === undefined && window.event) e = window.event;
+
+        var onSearchComplete = function () {
+            if ($scope.posts.length == 0) { alert('no such relevant posts found') }
+        };
+
+        if (e.keyCode == 13) {
+            $scope.posts = [];
+            $scope.getPosts(onSearchComplete);
+        }
+
     };
 
     $scope.prevnextdisabling = function () {

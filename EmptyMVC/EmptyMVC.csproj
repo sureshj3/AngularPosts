@@ -158,6 +158,7 @@
     <Content Include="Scripts\Angular\controllers.js" />
     <Content Include="Scripts\Angular\main.js" />
     <Content Include="Scripts\Angular\models.js" />
+    <Content Include="Scripts\Angular\ng-infinite-scroll.js" />
     <Content Include="Scripts\Angular\services.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.min.js" />
