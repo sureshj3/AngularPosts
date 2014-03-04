@@ -17,7 +17,7 @@ namespace EmptyMVC.BL
         {
             angularPost ap = new angularPost();
             ap.content = post.content;
-            ap.postedby = post.postedby != "" ? post.postedby : "Anonymous";
+            ap.postedby = post.postedby != "" || post.postedby != null ? post.postedby : "Anonymous";
             ap.createdate = DateTime.Now.Date;
             ap.UserBrowser = request.Browser.Browser + ", " + request.Browser.Version;
             ap.UserIP = Common.GetVisitorIPAddress();
