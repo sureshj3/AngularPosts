@@ -61,13 +61,18 @@ namespace EmptyMVC.BL
                 content = a.content,
                 postedby = a.postedby,
                 createdate = a.createdate,
+                ups = a.Likes,
+                downs = a.Hates,
+                eyes = a.Views,
                 comments = a.comments.Select(c => new commentViewModel
                 {
                     id = c.id,
                     parentPost = a.id,
                     postedby = c.commentPostedby,
                     commenttext = c.comments,
-                    createDate = c.createDate
+                    createDate = c.createDate,
+                    ups = c.Likes,
+                    downs = c.Hates
                 })
             }).OrderBy(n => n.id).Skip((pageno - 1) * PostsPerPage).Take(PostsPerPage).ToList();
         }
@@ -75,6 +80,50 @@ namespace EmptyMVC.BL
         public angularPost GetPostByID(long id)
         {
             return db.angularPosts.Where(a => a.id == id).FirstOrDefault();
+        }
+
+        public postViewModel GetPostVMByID(long id)
+        {
+            return db.angularPosts.Where(a => a.id == id).Select(a => new postViewModel
+            {
+                id = a.id,
+                content = a.content,
+                postedby = a.postedby,
+                createdate = a.createdate,
+                ups = a.Likes,
+                downs = a.Hates,
+                eyes = a.Views,
+                comments = a.comments.Select(c => new commentViewModel
+                {
+                    id = c.id,
+                    parentPost = a.id,
+                    postedby = c.commentPostedby,
+                    commenttext = c.comments,
+                    createDate = c.createDate,
+                    ups = c.Likes,
+                    downs = c.Hates
+                })
+            }).FirstOrDefault();
+        }
+
+        public void UpdateLikeDislikes(int postId, int likeDislikeFlag)
+        {
+            angularPost ap = new angularPost();
+            ap = GetPostByID(postId);
+
+            switch (likeDislikeFlag)
+            {
+                case 1:
+                    ap.Likes = ap.Likes + 1;
+                    break;
+                case 0:
+                    ap.Hates = ap.Hates + 1;
+                    break;
+                default:
+                    break;
+            }
+
+            db.SaveChanges();
         }
 
     }

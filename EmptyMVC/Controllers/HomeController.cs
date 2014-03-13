@@ -48,7 +48,7 @@ namespace EmptyMVC.Controllers
             _AngularPostsBL.AddComment(cm, Request);
             return Content("");
         }
-
+        
         public JsonResult getPosts(int pageno, string searchtext)
         {
             ViewBag.totalPages = db.angularPosts.Count();
@@ -60,6 +60,18 @@ namespace EmptyMVC.Controllers
 
             return Json(abc);
         }
+
+        //public JsonResult getPosts(int pageno, string searchtext)
+        //{
+        //    ViewBag.totalPages = db.angularPosts.Count();
+        //    var abc = _AngularPostsBL.GetListofPosts(pageno, searchtext);
+        //    //JavaScriptSerializer js = new JavaScriptSerializer();
+        //    //string jsonResult = js.Serialize(abc);
+
+        //    //jsonResult = Regex.Replace(jsonResult, @"\""\\/Date\((\d+)\)\\/\""", "new Date($1)");
+
+        //    return Json(abc);
+        //}
 
     }
 }

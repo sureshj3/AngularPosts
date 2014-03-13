@@ -2,10 +2,8 @@ USE [master]
 GO
 
 /****** Object:  Database [Angular]    Script Date: 02/28/2014 14:50:37 ******/
-CREATE DATABASE [Angular] ON  PRIMARY 
-( NAME = N'Angular', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\Angular.mdf' , SIZE = 2048KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'Angular_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\Angular_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+CREATE DATABASE [Angular] 
+
 GO
 
 ALTER DATABASE [Angular] SET COMPATIBILITY_LEVEL = 100
@@ -173,5 +171,23 @@ GO
 
 ALTER TABLE [dbo].[comments] CHECK CONSTRAINT [FK_comments_posts]
 GO
+
+
+--12 march 2014
+
+alter table angularpost
+add Likes int not null DEFAULT 0
+
+alter table angularpost
+add Hates int not null default 0
+
+alter table angularpost
+add  Views int not null default 0
+
+alter table comments
+add  Likes int not null default 0
+
+alter table comments
+add  Hates int not null default 0
 
 

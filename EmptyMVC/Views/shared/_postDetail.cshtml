@@ -1,1 +1,63 @@
-﻿
+﻿<div class="container" style="padding-top: 60px;">
+
+    <div class="row">
+        <div class="col-xs-3">
+        </div>
+        <div class="col-xs-6 panel panel-default" style="margin-top: 15px;">
+
+            <div id="alert-success" class="alert alert-success  alert-dismissable hidden">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Thankyou...Your post is successfully saved.
+            </div>
+            <div id="alert-error" class="alert alert-danger  alert-dismissable hidden">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>invalid input...
+            </div>
+
+            <div class="panel-body" style="font-size: 14px; padding-left: 0;">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="~/Content/Images/default.png" alt="..." width="35" height="35">
+                        @* {{post.postedby}}*@
+                    </a>
+                    <div class="media-body">
+                        <b>{{post.content}}</b>
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="padding-top: 10px;">
+                <a data-toggle="collapse" href="#collapse-{{post.id}}" onclick="">
+                    <span class="badge">{{post.comments.length}}</span>
+                    &nbsp;Comments
+                </a>&nbsp;&nbsp;                        
+                            {{post.ups}}&nbsp;<a ng-click="updateLD(1)" href="javascript:void(0);" class="glyphicon glyphicon-thumbs-up"></a>&nbsp;
+                            @*<div style="display: inline; height: 100%; margin: 10px; width: 1px; color: lightgray; border: 1px inset;"></div>*@
+                &nbsp;{{post.downs}}&nbsp;<a ng-click="updateLD(0)" href="javascript:void(0);" class="glyphicon glyphicon-thumbs-down"></a>
+
+                @*on <span>{{post.createdate | date:'MM/dd/yyyy  h:mma'}}</span>*@
+            </div>
+
+            <div class="panel-footer">
+                <div class="form-group">
+                    <textarea rows="2" cols="50" ng-model="newcomment" placeholder="write your comments here..." class="form-control"></textarea>
+                </div>
+                <button class="btn btn-default pull-right" type="button" data-toggle="tooltip" data-placement="right" title="Submit your comment as anonymous user"
+                    ng-click="addcomment('post.id')">
+                    done</button>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div style="padding: 7px 0px;">
+                <div class="" ng-repeat="comment in post.comments">
+                    <img src="~/Content/Images/default.png" alt="-by" width="25" height="25">&nbsp; {{comment.commenttext}}  <b>{{comment.postedby}}</b>
+                    <hr />
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

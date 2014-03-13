@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "angular demo";
+    ViewBag.Title = "Detailed Post";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,9 +11,10 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div id="content-container" ng-controller="postsController">
+    <div id="content-container" ng-controller="postDetailController">
+        <input type="hidden" name="HiddenpostId" id="HiddenpostId" value="@ViewBag.PostId" />
         @Html.Partial("_header")
-        @Html.Partial("_addpost")
+        @Html.Partial("_postDetail")
     </div>
 </body>
 </html>

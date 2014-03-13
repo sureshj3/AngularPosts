@@ -26,6 +26,9 @@ namespace EmptyMVC.Models
         public Nullable<bool> isActive { get; set; }
         public string UserIP { get; set; }
         public string UserBrowser { get; set; }
+        public int Likes { get; set; }
+        public int Views { get; set; }
+        public int Hates { get; set; }
     
         public virtual ICollection<comment> comments { get; set; }
     }

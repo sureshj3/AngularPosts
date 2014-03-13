@@ -118,6 +118,7 @@
     <Compile Include="App_Data\BL\AngularPostsBL.cs" />
     <Compile Include="App_Data\Utilities\Common.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,6 +217,12 @@
   <ItemGroup>
     <Content Include="Views\shared\_postDetail.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Post\post.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\shared\_header.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -232,7 +239,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>57191</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:55037/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

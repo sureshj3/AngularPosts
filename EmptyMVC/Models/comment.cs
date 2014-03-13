@@ -21,6 +21,8 @@ namespace EmptyMVC.Models
         public string UserIP { get; set; }
         public string UserBrowser { get; set; }
         public string commentPostedby { get; set; }
+        public int Likes { get; set; }
+        public int Hates { get; set; }
     
         public virtual angularPost angularPost { get; set; }
     }

@@ -4,6 +4,9 @@
     this.postedby = "Anonymous";
     this.createdate = null;
     this.isActive = true;
+    this.ups = 0;
+    this.downs = 0;
+    this.eyes = 0;
 }
 
 function commentVM() {
@@ -12,6 +15,32 @@ function commentVM() {
     this.parentPost = null;
     this.postedby = "Anonymous";
     this.createdate = null;
+    this.ups = 0;
+    this.downs = 0;
+}
+//local storage
+function getStorageItem(key) {
+    if (typeof (Storage) !== "undefined")
+        return localStorage.getItem(key);
+    else
+        return null;
+}
+
+function setStorageItem(key, value) {
+    if (typeof (Storage) !== "undefined")
+        localStorage.setItem(key, value);
+}
+//Session storage
+function getSstorageItem(key) {
+    if (typeof (Storage) !== "undefined")
+        return sessionStorage.getItem(key);
+    else
+        return null;
+}
+
+function setSstorageItem(key, value) {
+    if (typeof (Storage) !== "undefined")
+        sessionStorage.setItem(key, value);
 }
 
 var alert_blank_posttext = 'aha...content of the post cannot be left blank.';
@@ -33,6 +62,9 @@ postsModel.controller('postsController', function ($scope, postsFactory) {
     $scope.newcomment = {};
     $scope.busy = false;
     $scope.posts = [];
+
+    $scope.post = null;
+    $scope.comments = null;
 
 
 
@@ -99,6 +131,19 @@ postsModel.controller('postsController', function ($scope, postsFactory) {
         });
     };
 
+    $scope.updateLD = function (ld) {
+        var me = this;
+        id = me.post.id;
+        if (getStorageItem(id + '_' + ld)) {
+            return;
+        }
+        postsFactory.addLikeDislike(id, ld, function (data) {
+            setStorageItem(id + '_' + ld, ld);
+            if (ld == 0) me.post.downs = me.post.downs + 1;
+            else if (ld == 1) me.post.ups = me.post.ups + 1;
+        });
+    };
+
     $scope.nextclick = function () {
         $scope.currPage = $scope.currPage + 1;
         postsFactory.getPosts($scope.currPage, function (data) {
@@ -147,5 +192,61 @@ postsModel.controller('postsController', function ($scope, postsFactory) {
     };
 
     $scope.prevnextdisabling();
+
+});
+
+//******************************************************************************************************
+
+postsModel.controller('postDetailController', function ($scope, postsFactory) {
+    $scope.post = null;
+    $scope.comments = null;
+
+    $scope.getPost = function (onComplete) {
+        var postId = $("#HiddenpostId").val();
+
+        postsFactory.getPost(postId, function (data) {
+            $scope.post = data;
+            if (typeof onComplete === 'function') {
+                onComplete();
+            };
+
+        });
+    };
+
+    $scope.getPost();
+
+    $scope.addcomment = function (id) {
+        var me = this;
+        id = me.post.id;
+
+        if ($scope.newcomment === undefined || $scope.newcomment.trim() == '') {
+            showHideAlerts('error', 'success');
+            return;
+        };
+
+        var commentObject = new commentVM();
+        commentObject.commenttext = $scope.newcomment;
+        commentObject.parentPost = id;
+        commentObject.postedby = null;
+
+        postsFactory.addcomment(commentObject, function (data) {
+            showHideAlerts('success', 'error');
+            me.post.comments.push(commentObject);
+            $scope.newcomment = '';
+        });
+    };
+
+    $scope.updateLD = function (ld) {
+        var me = this;
+        id = me.post.id;
+        if (getStorageItem(id + '_' + ld)) {
+            return;
+        }
+        postsFactory.addLikeDislike(id, ld, function (data) {
+            setStorageItem(id + '_' + ld, ld);
+            if (ld == 0) me.post.downs = me.post.downs + 1;
+            else if (ld == 1) me.post.ups = me.post.ups + 1;
+        });
+    };
 
 });

@@ -24,6 +24,9 @@
           <Property Name="isActive" Type="bit" />
           <Property Name="UserIP" Type="varchar" MaxLength="50" />
           <Property Name="UserBrowser" Type="varchar(max)" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="Hates" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="comments">
           <Key>
@@ -36,6 +39,8 @@
           <Property Name="createDate" Type="datetime" />
           <Property Name="UserIP" Type="varchar" MaxLength="50" />
           <Property Name="UserBrowser" Type="varchar" MaxLength="200" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="Hates" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_comments_posts">
           <End Role="angularPost" Type="AngularModel.Store.angularPost" Multiplicity="1" />
@@ -73,6 +78,9 @@
           <Property Type="String" Name="UserIP" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="UserBrowser" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="comments" Relationship="AngularModel.FK_comments_posts" FromRole="angularPost" ToRole="comment" />
+          <Property Type="Int32" Name="Likes" Nullable="false" />
+          <Property Type="Int32" Name="Views" Nullable="false" />
+          <Property Type="Int32" Name="Hates" Nullable="false" />
         </EntityType>
         <EntityType Name="comment">
           <Key>
@@ -86,6 +94,8 @@
           <Property Type="String" Name="UserBrowser" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="angularPost" Relationship="AngularModel.FK_comments_posts" FromRole="comment" ToRole="angularPost" />
           <Property Type="String" Name="commentPostedby" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Likes" Nullable="false" />
+          <Property Type="Int32" Name="Hates" Nullable="false" />
         </EntityType>
         <Association Name="FK_comments_posts">
           <End Type="AngularModel.angularPost" Role="angularPost" Multiplicity="1" />
@@ -108,6 +118,9 @@
           <EntitySetMapping Name="angularPosts">
             <EntityTypeMapping TypeName="AngularModel.angularPost">
               <MappingFragment StoreEntitySet="angularPost">
+                <ScalarProperty Name="Hates" ColumnName="Hates" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
                 <ScalarProperty Name="UserBrowser" ColumnName="UserBrowser" />
                 <ScalarProperty Name="UserIP" ColumnName="UserIP" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
@@ -121,6 +134,8 @@
           <EntitySetMapping Name="comments">
             <EntityTypeMapping TypeName="AngularModel.comment">
               <MappingFragment StoreEntitySet="comments">
+                <ScalarProperty Name="Hates" ColumnName="Hates" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
                 <ScalarProperty Name="commentPostedby" ColumnName="commentPostedby" />
                 <ScalarProperty Name="UserBrowser" ColumnName="UserBrowser" />
                 <ScalarProperty Name="UserIP" ColumnName="UserIP" />

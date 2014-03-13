@@ -18,6 +18,12 @@ namespace EmptyMVC
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "post",
+                url: "{action}/{id}",
+                defaults: new { controller = "post", action = "post", id = UrlParameter.Optional }
+            );
         }
     }
 }

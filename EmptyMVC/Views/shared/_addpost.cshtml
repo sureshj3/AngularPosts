@@ -1,21 +1,4 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color: lightcyan;">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-3">
-                <h2>Posts <small>by anonymous users</small></h2>
-            </div>
-            <div class="col-xs-6" style="padding-top: 15px;">
-                <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                    <input type="text" ng-model="searchText" class="form-control" placeholder="search" ng-keypress="SearchPosts($event)">
-                </div>
-            </div>
-
-        </div>
-    </div>
-</nav>
-
-<div class="container" style="padding-top: 60px;">
+﻿<div class="container" style="padding-top: 60px;">
 
     <div class="row">
         <div class="col-xs-3">
@@ -42,28 +25,39 @@
                 </form>
             </div>
 
-            <div id="alert-success" class="alert alert-success  alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Thankyou...Your post is successfully saved.
+            <div id="alert-success" class="alert alert-success hidden">
+                Thankyou...Your post is successfully saved.
             </div>
-            <div id="alert-error" class="alert alert-danger  alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>invalid input...
+            <div id="alert-error" class="alert alert-danger hidden">
+                invalid input...
             </div>
 
             <ul style="list-style: none; padding-left: 0px;">
                 <li ng-repeat="post in posts | filter:searchText">
-                    <a data-toggle="collapse" href="#" ng-click="addcomment('post.id')" style="color: #1155CC; font-size: 14px;">
-                        <b>{{post.content}}</b>
-                    </a>
+                    @*  <b>{{post.content}}</b>... <a href="post/post/{{post.id}}" style="color: #1155CC; font-size: 14px;">more
+                    </a>*@
+
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="~/Content/Images/default.png" alt="..." width="35" height="35">
+                            @* {{post.postedby}}*@
+                        </a>
+                        <div class="media-body">
+                            {{post.content}}... <a href="post/post/{{post.id}}" style="color: #1155CC; font-size: 14px;">more
+                            </a>
+                        </div>
+                    </div>
 
 
                     <div style="padding-top: 10px;">
                         <a data-toggle="collapse" href="#collapse-{{post.id}}" onclick="">
                             <span class="badge">{{post.comments.length}}</span>
                             &nbsp;Comments
-                        </a>
-                        <p class="pull-right">
-                            <img src="~/Content/Images/default.png" alt="-by" width="25" height="25">&nbsp; {{post.postedby}}
-                        </p>
+                        </a>&nbsp;&nbsp;                        
+                            {{post.ups}}&nbsp;<a ng-click="updateLD(1)" href="javascript:void(0);" class="glyphicon glyphicon-thumbs-up"></a>&nbsp;
+                            @*<div style="display: inline; height: 100%; margin: 10px; width: 1px; color: lightgray; border: 1px inset;"></div>*@
+                        &nbsp;{{post.downs}}&nbsp;<a ng-click="updateLD(0)" href="javascript:void(0);" class="glyphicon glyphicon-thumbs-down"></a>
+
                         @*on <span>{{post.createdate | date:'MM/dd/yyyy  h:mma'}}</span>*@
                     </div>
 
@@ -92,29 +86,7 @@
                     <span class="sr-only">45% Complete</span>
                 </div>
             </div>
-
-
-            @*     <div class="pagination pull-right">
-                <input class="btn btn-default" type="button" value="&laquo; prev" ng-click="prevclick()" ng-disabled="prevdisabled" />
-                {{currPage}} 
-                <input class="btn btn-default" type="button" value="next &raquo;" ng-click="nextclick()" ng-disabled="nextdisabled" />
-            </div>*@
         </div>
     </div>
-    @* <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-        <div class="row">
-            <div class="col-xs-3">
-            </div>
-            <div class="col-xs-6" role="form">
-               
-                <ul class="pagination pull-right">
-                    <li><a href="#" ng-click="prevclick()" ng-disabled="prevdisabled">&laquo; Prev</a></li>
-                    <li class="disabled"><a href="#">{{currPage}} </a></li>
-                    <li><a href="#" ng-click="nextclick()" ng-disabled="nextdisabled">Next &raquo;</a></li>
-                </ul>
-
-            </div>
-        </div>
-    </nav>*@
 </div>
 

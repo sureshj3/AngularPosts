@@ -12,6 +12,9 @@ namespace EmptyMVC.ViewModels
         public string postedby { get; set; }
         public Nullable<System.DateTime> createdate { get; set; }
         public Nullable<bool> isActive { get; set; }
+        public int ups { get; set; }
+        public int downs { get; set; }
+        public int eyes { get; set; }
         public IEnumerable<commentViewModel> comments { get; set; }
     }
 
@@ -21,6 +24,8 @@ namespace EmptyMVC.ViewModels
         public long parentPost { get; set; }
         public string commenttext { get; set; }
         public string postedby { get; set; }
+        public int ups { get; set; }
+        public int downs { get; set; }
         public Nullable<System.DateTime> createDate { get; set; }
 
     }

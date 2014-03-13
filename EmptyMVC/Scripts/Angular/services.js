@@ -12,6 +12,16 @@ postsModel.service('postsFactory', function ($http) {
             });
     };
 
+    this.getPost = function (postId, successCallback) {
+        $http.post('/post/getPost', { 'postId': postId }).
+            success(function (data, status) {
+                successCallback(data);
+            }).
+            error(function (data, status) {
+                alert("AJAX failed!");
+            });
+    };
+
     this.getJSONPosts = function (pageno, searchText, successCallback) {
         var url = "/home/getPosts?pageno=" + pageno + "&searchtext=" + searchText;
         $http.getJSON(url, "", function (data) {
@@ -39,5 +49,13 @@ postsModel.service('postsFactory', function ($http) {
         });
     };
 
-
+    this.addLikeDislike = function (postId, ld, successCallback) {
+        $http.post('/post/likeDislikePost', { "postId": postId, isLD: ld }).
+        success(function (data, status) {
+            successCallback(data);
+        }).
+        error(function (data, status) {
+            alert("AJAX failed!");
+        });
+    };
 });
