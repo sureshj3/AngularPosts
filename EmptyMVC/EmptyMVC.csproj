@@ -43,6 +43,9 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -117,6 +120,12 @@
   <ItemGroup>
     <Compile Include="App_Data\BL\AngularPostsBL.cs" />
     <Compile Include="App_Data\Utilities\Common.cs" />
+    <Compile Include="App_Data\Utilities\Logger\ILogger.cs" />
+    <Compile Include="App_Data\Utilities\Logger\WebVariablesRenderer.cs" />
+    <Compile Include="App_Data\Utilities\Logger\UtcDateRenderer.cs" />
+    <Compile Include="App_Data\Utilities\Logger\LogUtility.cs" />
+    <Compile Include="App_Data\Utilities\Logger\NLogger.cs" />
+    <Compile Include="App_Data\Utilities\NLogger.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
@@ -222,6 +231,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\shared\_header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

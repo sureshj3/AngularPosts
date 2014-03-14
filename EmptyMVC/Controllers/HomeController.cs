@@ -8,6 +8,7 @@ using EmptyMVC.ViewModels;
 using EmptyMVC.BL;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
+using EmptyMVC.Utilities;
 
 
 namespace EmptyMVC.Controllers
@@ -18,8 +19,10 @@ namespace EmptyMVC.Controllers
         // GET: /Home/
 
         private AngularPostsBL _AngularPostsBL;
+        private NLogger _logger;
         public HomeController()
         {
+            _logger = new NLogger();
             _AngularPostsBL = new AngularPostsBL();
         }
 
@@ -27,8 +30,28 @@ namespace EmptyMVC.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.cnt = db.angularPosts.Count();
+            try
+            {
+                ViewBag.cnt = db.angularPosts.Count();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("An error has occurred HomeController-Index", ex);
+            }
+
             return View();
+        }
+
+        public JsonResult getPosts(int pageno, string searchtext)
+        {
+            ViewBag.totalPages = db.angularPosts.Count();
+            var abc = _AngularPostsBL.GetListofPosts(pageno, searchtext);
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //string jsonResult = js.Serialize(abc);
+
+            //jsonResult = Regex.Replace(jsonResult, @"\""\\/Date\((\d+)\)\\/\""", "new Date($1)");
+
+            return Json(abc);
         }
 
         public ActionResult InsertPost(string vm)
@@ -47,18 +70,6 @@ namespace EmptyMVC.Controllers
             commentViewModel cm = js.Deserialize<commentViewModel>(vm);
             _AngularPostsBL.AddComment(cm, Request);
             return Content("");
-        }
-        
-        public JsonResult getPosts(int pageno, string searchtext)
-        {
-            ViewBag.totalPages = db.angularPosts.Count();
-            var abc = _AngularPostsBL.GetListofPosts(pageno, searchtext);
-            //JavaScriptSerializer js = new JavaScriptSerializer();
-            //string jsonResult = js.Serialize(abc);
-
-            //jsonResult = Regex.Replace(jsonResult, @"\""\\/Date\((\d+)\)\\/\""", "new Date($1)");
-
-            return Json(abc);
         }
 
         //public JsonResult getPosts(int pageno, string searchtext)

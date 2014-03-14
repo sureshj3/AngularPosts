@@ -19,6 +19,11 @@ namespace EmptyMVC
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            // Register custom NLog Layout renderers
+            //LayoutRendererFactory.AddLayoutRenderer("utc_date", typeof(EmptyMVC.Utilities.LoggerN.UtcDateRenderer));
+            //LayoutRendererFactory.AddLayoutRenderer("web_variables", typeof(EmptyMVC.Utilities.LoggerN.WebVariablesRenderer));
+ 
         }
     }
 }
